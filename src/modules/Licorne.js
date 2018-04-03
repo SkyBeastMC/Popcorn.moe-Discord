@@ -29,11 +29,6 @@ export default class Licorne {
 		);
 	}
 
-	@command(/^licorne$/)
-	licorne() {
-		throw new Error(settings.falseRealities[Math.floor(Math.random() * settings.falseRealities.length)]);
-	}
-
 	@command(/^echo (.+)$/)
 	echo(message, msg) {
 		return message.reply(`\`\`\`${msg}\`\`\``);

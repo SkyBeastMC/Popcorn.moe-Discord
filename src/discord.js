@@ -5,7 +5,9 @@ import { error, warn } from './utils';
 export const client = new Client();
 
 client.on('ready', () =>
-	console.log(magenta(`Moe Moe Kyun ${green.bold('@' + client.user.tag)}!`))
+	console.log(
+		magenta(`Le mot de passe c'est trois ${green.bold('@' + client.user.tag)}!`)
+	)
 );
 
 //catch exits
