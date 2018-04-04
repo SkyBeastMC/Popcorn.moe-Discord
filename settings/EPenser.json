@@ -11,6 +11,15 @@
     },
     "newMember": {
         "enabled": true,
-        "role": "430847265637400591"
+        "role": "430845952388104212"
+    },
+    "readRules": {
+        "enabled": true,
+        "channel": "298539936053985280",
+        "viewerRole": "430845952388104212",
+        "message": "cacahuetes",
+        "rankupMessage": "Vous avez rank up !",
+        "rankupRole": "430846685380345876",
+        "failMessage": "Veuillez lire les règles pour devenir **e-penseur** !"
     }
 }

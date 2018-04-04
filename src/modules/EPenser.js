@@ -2,11 +2,11 @@ import { RichEmbed, Permissions } from 'discord.js';
 import { on, command } from '../decorators';
 import { load } from '../utils';
 
-const { activeUsers, questions, newMember } = load('EPenser.json');
+const { activeUsers, questions, newMember, readRules } = load('EPenser.json');
 
 export default class EPenser {
 	/**
-	 * @SkyBeast :
+	 * @SkyBeastMC :
 	 * Groupe pour utilisateurs actifs.
 	 */
 	@on('message')
@@ -88,5 +88,35 @@ export default class EPenser {
 
 		const eViewer = member.guild.roles.get(newMember.role);
 		return member.addRole(eViewer);
+	}
+
+	/**
+	 * @SkyBeastMC :
+	 * Auto ajout du grade e-penseur à ceux qui ont lu les regles
+	 */
+	@on('message')
+	readRules(message) {
+		if (!readRules.enabled) return;
+
+		const { member, content, channel } = message;
+
+		if (channel.id !== readRules.channel) return;
+
+		const roles = member.roles.values();
+		if (roles.length !== 1 || roles[0].id !== readRules.viewerRole)
+			return message.delete();
+
+		if (content === readRules.message)
+			return Promise.all([
+				message.delete(),
+				member.send(readRules.rankupMessage),
+				member.removeRole(readRules.viewerRole),
+				member.addRole(readRules.rankupRole)
+			]);
+		else
+			return Promise.all([
+				message.delete(),
+				member.send(readRules.failMessage)
+			]);
 	}
 }
