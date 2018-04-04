@@ -1,4 +1,4 @@
 import Licorne from './Licorne';
-import GroupChange from './GroupChange';
+import EPenser from './EPenser';
 
-export { Licorne, GroupChange };
+export { Licorne, EPenser };

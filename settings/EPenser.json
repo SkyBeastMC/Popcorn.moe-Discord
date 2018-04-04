@@ -1,0 +1,16 @@
+{
+    "activeUsers": {
+        "enabled": false,
+        "time": 1814400000,
+        "threshold": 20,
+        "role": "308615845129617408"
+    },
+    "questions": {
+        "enabled": true,
+        "channel": "questions"
+    },
+    "newMember": {
+        "enabled": true,
+        "role": "430847265637400591"
+    }
+}
