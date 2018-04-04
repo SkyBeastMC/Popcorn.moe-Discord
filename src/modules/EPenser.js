@@ -37,7 +37,7 @@ export default class EPenser {
 	 */
 	//Thanks @Iryu : https://pastebin.com/9zKuJ6dT
 	@command(/^q (.+[\?\.\)])$/) //regex powaaa (:
-	async questions({ guild }, msg) {
+	async questions({ guild, postedAt }, question) {
 		if (!questions.enabled) return;
 
 		if (!guild.channels.find('name', 'questions')) {
@@ -50,9 +50,13 @@ export default class EPenser {
 		const qChannel = guild.channels.find('name', questions.channel);
 
 		const embed = new RichEmbed()
-			.setTitle(msg)
-			.setDescription('Question posée par : ' + message.author);
-		await qChannel.send({ embed });
+			.setAuthor(member.displayName, member.user.displayAvatarURL)
+			.setColor(0x2f73e0)
+			.setDescription(question)
+			.setTimestamp(postedAt)
+		const message = await qChannel.send(`<@${member.id}>`, { embed });
+		await message.react('👍')
+		await message.react('👎')
 	}
 
 	/**
