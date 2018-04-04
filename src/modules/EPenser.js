@@ -1,4 +1,4 @@
-import { RichEmbed } from 'discord.js';
+import { RichEmbed, Permissions } from 'discord.js';
 import { on, command } from '../decorators';
 import { load } from '../utils';
 
@@ -53,10 +53,26 @@ export default class EPenser {
 			.setAuthor(member.displayName, member.user.displayAvatarURL)
 			.setColor(0x2f73e0)
 			.setDescription(question)
-			.setTimestamp(postedAt)
+			.setTimestamp(postedAt);
 		const message = await qChannel.send(`<@${member.id}>`, { embed });
-		await message.react('👍')
-		await message.react('👎')
+		await message.react('👍');
+		await message.react('👎');
+		await message.react('❌');
+	}
+
+	@on('messageReactionAdd')
+	async questionsDel({ message }, user) {
+		if (!questions.enabled) return;
+
+		const member = message.guild.members.get(user.id);
+		if (
+			message.channel.name !== questions.channel ||
+			!member ||
+			!member.permissions.has(Permissions.MANAGE_MESSAGES)
+		)
+			return;
+
+		return message.delete();
 	}
 
 	/**
