@@ -40,8 +40,8 @@ export default class EPenser {
 	async questions({ guild, postedAt }, question) {
 		if (!questions.enabled) return;
 
-		if (!guild.channels.find('name', 'questions')) {
-			await guild.createChannel('questions', 'text');
+		if (!guild.channels.find('name', questions.channel)) {
+			await guild.createChannel(questions.channel, 'text');
 			await message.channel.send(
 				'[**Channel de questions**] Channel pour les questions à Bruce.'
 			);
