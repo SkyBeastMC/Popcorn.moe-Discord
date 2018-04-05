@@ -15,7 +15,7 @@ const settings = load('global.json');
 
 export default class Licorne {
 	@command(/^reload$/)
-	@needPermissions([Permissions.FLAGS.MANAGE_GUILD])
+	@needPermissions(Permissions.FLAGS.MANAGE_ROLES)
 	reload({ channel }) {
 		unloadModules();
 		const modules = [];
@@ -32,13 +32,13 @@ export default class Licorne {
 	}
 
 	@command(/^echo (.+)$/)
-	@needPermissions([Permissions.FLAGS.MANAGE_GUILD])
+	@needPermissions(Permissions.FLAGS.MANAGE_ROLES)
 	echo(message, msg) {
 		return message.reply(`\`\`\`${msg}\`\`\``);
 	}
 
 	@command(/^modules$/)
-	@needPermissions([Permissions.FLAGS.MANAGE_GUILD])
+	@needPermissions(Permissions.FLAGS.MANAGE_ROLES)
 	modules({ channel }) {
 		return channel.send(
 			'Module list:\n' +
@@ -47,7 +47,7 @@ export default class Licorne {
 	}
 
 	@command(/^module (\w+)$/)
-	@needPermissions([Permissions.FLAGS.MANAGE_GUILD])
+	@needPermissions(Permissions.FLAGS.MANAGE_ROLES)
 	module({ channel }, module) {
 		const mod = modules.find(mod => mod.name === module);
 		if (!mod) return channel.send('Cannot find module ' + module + '.');
