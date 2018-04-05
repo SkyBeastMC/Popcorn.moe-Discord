@@ -6,15 +6,15 @@
 		"role": "308615845129617408"
 	},
 	"questions": {
-		"enabled": true,
+		"enabled": false,
 		"channel": "questions"
 	},
 	"newMember": {
-		"enabled": true,
+		"enabled": false,
 		"role": "430845952388104212"
 	},
 	"readRules": {
-		"enabled": true,
+		"enabled": false,
 		"channel": "298539936053985280",
 		"viewerRole": "430845952388104212",
 		"message": "cacahuetes",
