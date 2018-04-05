@@ -1,25 +1,25 @@
 {
-    "activeUsers": {
-        "enabled": false,
-        "time": 1814400000,
-        "threshold": 20,
-        "role": "308615845129617408"
-    },
-    "questions": {
-        "enabled": true,
-        "channel": "questions"
-    },
-    "newMember": {
-        "enabled": true,
-        "role": "430845952388104212"
-    },
-    "readRules": {
-        "enabled": true,
-        "channel": "298539936053985280",
-        "viewerRole": "430845952388104212",
-        "message": "cacahuetes",
-        "rankupMessage": "Vous avez rank up !",
-        "rankupRole": "430846685380345876",
-        "failMessage": "Veuillez lire les règles pour devenir **e-penseur** !"
-    }
+	"activeUsers": {
+		"enabled": false,
+		"time": 1814400000,
+		"threshold": 20,
+		"role": "308615845129617408"
+	},
+	"questions": {
+		"enabled": true,
+		"channel": "questions"
+	},
+	"newMember": {
+		"enabled": true,
+		"role": "430845952388104212"
+	},
+	"readRules": {
+		"enabled": true,
+		"channel": "298539936053985280",
+		"viewerRole": "430845952388104212",
+		"message": "cacahuetes",
+		"rankupMessage": "Vous avez rank up !",
+		"rankupRole": "430846685380345876",
+		"failMessage": "Veuillez lire les règles pour devenir **e-penseur** !"
+	}
 }

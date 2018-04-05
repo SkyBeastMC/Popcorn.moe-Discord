@@ -10,7 +10,8 @@ export default class Github {
 	constructor() {
 		this.category = {
 			icon: '<:github:357956053952102400>',
-			name: 'Github'
+			name: 'Github',
+			desc: 'Commande en rapport avec Github'
 		};
 	}
 
@@ -158,7 +159,7 @@ export default class Github {
 			.setThumbnail(avatarUrl)
 			.setURL(url)
 			.setTimestamp()
-			.setFooter('epenser discord', gSettings.images.siteIcon);
+			.setFooter('e-penser discord', gSettings.images.mainIcon);
 
 		sorted.forEach(([author, commits], i) =>
 			embed.addField(`#${i + 1} - ${author}`, commits, true)

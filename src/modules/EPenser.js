@@ -5,6 +5,14 @@ import { load } from '../utils';
 const { activeUsers, questions, newMember, readRules } = load('EPenser.json');
 
 export default class EPenser {
+	constructor() {
+		this.category = {
+			icon: '<:3_:431578215086292993>',
+			name: 'EPenser',
+			desc: 'Commandes en rapport à Bruce'
+		};
+	}
+
 	/**
 	 * @SkyBeastMC :
 	 * Groupe pour utilisateurs actifs.
@@ -36,7 +44,12 @@ export default class EPenser {
 	 * Fonctionnement : Quand un utilisateur utilise la commande q, recupere sa question et la poste dans un channel #questions
 	 */
 	//Thanks @Iryu : https://pastebin.com/9zKuJ6dT
-	@command(/^q (.+[\?\.\)])$/) //regex powaaa (:
+	@command(/^q (.+[\?\.\)])$/, {
+		//regex powaaa (:
+		name: 'q',
+		desc: 'Poser une question',
+		usage: '[question]'
+	})
 	async questions({ guild, postedAt }, question) {
 		if (!questions.enabled) return;
 

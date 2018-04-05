@@ -7,16 +7,19 @@ import { yellow } from 'chalk';
 const { script } = load('Restart.json');
 
 export default class Restart {
-    @command(/^restart$/)
-    @needPermissions(Permissions.FLAGS.MANAGE_GUILD)
+	@command(/^restart$/)
+	@needPermissions(Permissions.FLAGS.MANAGE_GUILD)
 	async restart(message) {
-        await Promise.all([message && message.delete(), message.reply('Le bot va redémarrer...')]);
-        spawn(script, [], {
-            shell: true,
-            detached: true,
-            stdio: 'inherit'
-        })
-        console.log(yellow.bold('Restarting!'))
-        process.exit(0);
-    }
+		await Promise.all([
+			message && message.delete(),
+			message.reply('Le bot va redémarrer...')
+		]);
+		spawn(script, [], {
+			shell: true,
+			detached: true,
+			stdio: 'inherit'
+		});
+		console.log(yellow.bold('Restarting!'));
+		process.exit(0);
+	}
 }
