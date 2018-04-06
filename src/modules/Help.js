@@ -21,10 +21,8 @@ export default class Help {
 	help(message) {
 		const sGuild =
 			settings.guilds &&
-			settings.guilds.find(({ id }) => message.guild.id === id);
-		const botsChannel = message.guild.channels.find(
-			({ id }) => sGuild && sGuild.channels.bots === id
-		);
+			settings.guilds.get(message.guild.id);
+		const botsChannel = sGuild && sGuild.channels && message.guild.channels.get(sGuild.channels.bots);
 
 		if (!this.embed) this.embed = this.generateHelp();
 
