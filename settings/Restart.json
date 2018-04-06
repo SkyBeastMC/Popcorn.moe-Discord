@@ -1,3 +1,4 @@
 {
+	"runScript": false,
 	"script": "./run.sh"
 }

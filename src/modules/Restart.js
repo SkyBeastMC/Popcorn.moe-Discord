@@ -4,17 +4,17 @@ import { load } from '../utils';
 import { spawn } from 'child_process';
 import { yellow } from 'chalk';
 
-const { script } = load('Restart.json');
+const { runScript, script } = load('Restart.json');
 
 export default class Restart {
 	@command(/^restart$/)
 	@needPermissions(Permissions.FLAGS.MANAGE_ROLES)
 	async restart(message) {
 		await Promise.all([
-			message && message.delete(),
+			message.delete(),
 			message.reply('Le bot va redémarrer...')
 		]);
-		spawn(script, [], {
+		runScript && spawn(script, [], {
 			shell: true,
 			detached: true,
 			stdio: 'inherit'
