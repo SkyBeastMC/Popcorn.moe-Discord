@@ -31,6 +31,16 @@ export default class Licorne {
 		);
 	}
 
+	@command(/^licorne$/)
+	@needPermissions(Permissions.FLAGS.MANAGE_ROLES)
+	licorne() {
+		throw new Error(
+			settings.falseRealities[
+				Math.floor(Math.random() * settings.falseRealities.length)
+			]
+		);
+	}
+
 	@command(/^echo (.+)$/)
 	@needPermissions(Permissions.FLAGS.MANAGE_ROLES)
 	echo(message, msg) {
