@@ -11,4 +11,6 @@ On accepte les pull request si c'est cool (:
 
 Pour installer les dépendances, lancez la commande `npm install`;
 
-Pour lancer le bot, il faut définir le token discord dans la variable d'environement `DISCORD_TOKEN` (`export DISCORD_TOKEN=...` sur linux et `SET DISCORD_TOKEN=...` sur windows) et lancer le bot avec `npm start`.
+Pour lancer le bot, il faut définir le token discord dans la variable d'environnement `DISCORD_TOKEN` (`export DISCORD_TOKEN=...` sur linux et `SET DISCORD_TOKEN=...` sur windows) et lancer le bot avec `npm start`.
+
+Si vous souhaitez utiliser le module Github.js, il faut aussi définir la variable d'environnement `GITHUB_TOKEN` avec un token github.
