@@ -7,7 +7,7 @@ export function err(title) {
 	const embed = new RichEmbed()
 		.setColor(0xdb1348)
 		.setImage(images.error[Math.floor(Math.random() * images.error.length)])
-		.setFooter('Please fix me senpaii!!', images.siteIcon)
+		.setFooter('Fix me on Github!', images.mainIcon)
 		.setTimestamp();
 	if (title) embed.setTitle(title);
 	return embed;
@@ -15,6 +15,6 @@ export function err(title) {
 
 export function timeDelete(message) {
 	return new Promise((resolve, reject) =>
-		setTimeout(() => resolve(message.delete()), 2 * 60 * 1000)
+		setTimeout(() => resolve(message.delete()), 60 * 1000)
 	);
 }
