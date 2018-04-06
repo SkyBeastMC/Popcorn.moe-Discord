@@ -51,7 +51,7 @@ export default class EPenser {
 		usage: '[question]'
 	})
 	@needPermissions(Permissions.FLAGS.SEND_MESSAGES)
-	async questions({ guild, postedAt }, question) {
+	async questions({ guild, postedAt, member }, question) {
 		if (!questions.enabled) return;
 
 		if (!guild.channels.find('name', questions.channel)) {
