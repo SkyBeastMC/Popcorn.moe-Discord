@@ -25,7 +25,9 @@
 		"Les licornes n'existent pas.",
 		"Les licornes ne sont pas nos amis."
 	],
-	"guilds": {
+	"guilds": [
+		{
 		"id": "297780867286433792"
-	}
+		}
+	]
 }
