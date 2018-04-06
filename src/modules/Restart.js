@@ -8,7 +8,7 @@ const { runScript, script } = load('Restart.json');
 
 export default class Restart {
 	@command(/^restart$/)
-	@needPermissions(Permissions.FLAGS.MANAGE_ROLES)
+	@needPermissions(Permissions.FLAGS.MANAGE_CHANNELS)
 	async restart(message) {
 		await Promise.all([
 			message.delete(),
