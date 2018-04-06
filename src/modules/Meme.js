@@ -20,7 +20,7 @@ export default class Meme {
 		Object.entries(settings).forEach(([name, cmd]) => this.setupOne(name, cmd));
 	}
 
-	setupOne(name, { desc, msg, gifs, allowNoArg }) {
+	setupOne(name, { desc, msg, images, allowNoArg }) {
 		const regex = new RegExp(COMMAND_MATCH.replace('$command', name), 'i');
 
 		const value = (message, mention, name, id) => {
