@@ -26,13 +26,11 @@ export default class Help {
 			({ id }) => sGuild && sGuild.channels.bots === id
 		);
 
-		const { channel } = message;
-
 		if (!this.embed) this.embed = this.generateHelp();
 
 		return Promise.all([
 			message.delete(),
-			(botsChannel || channel).send(`${message.author}`, { embed: this.embed })
+			(botsChannel || message.member).send(`${message.author}`, { embed: this.embed })
 		]);
 	}
 
