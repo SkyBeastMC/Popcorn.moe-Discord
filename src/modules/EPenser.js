@@ -1,6 +1,7 @@
 import { RichEmbed, Permissions } from 'discord.js';
 import { on, command, needPermissions } from '../decorators';
 import { load } from '../utils';
+import { client } from '../discord';
 
 const { activeUsers, questions, newMember, readRules } = load('EPenser.json');
 
