@@ -14,11 +14,12 @@ export default class Restart {
 			message.delete(),
 			message.reply('Le bot va redémarrer...')
 		]);
-		runScript && spawn(script, [], {
-			shell: true,
-			detached: true,
-			stdio: 'inherit'
-		});
+		runScript &&
+			spawn(script, [], {
+				shell: true,
+				detached: true,
+				stdio: 'inherit'
+			});
 		console.log(yellow.bold('Restarting!'));
 		process.exit(0);
 	}

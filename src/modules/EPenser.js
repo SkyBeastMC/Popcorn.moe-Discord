@@ -1,5 +1,5 @@
 import { RichEmbed, Permissions } from 'discord.js';
-import { on, command } from '../decorators';
+import { on, command, needPermissions } from '../decorators';
 import { load } from '../utils';
 
 const { activeUsers, questions, newMember, readRules } = load('EPenser.json');
@@ -44,12 +44,13 @@ export default class EPenser {
 	 * Fonctionnement : Quand un utilisateur utilise la commande q, recupere sa question et la poste dans un channel #questions
 	 */
 	//Thanks @Iryu : https://pastebin.com/9zKuJ6dT
-	@command(/^q (.+[\?\.\)])$/, {
+	@command(/^q (.{15,}[\?\.\)])$/, {
 		//regex powaaa (:
 		name: 'q',
 		desc: 'Poser une question',
 		usage: '[question]'
 	})
+	@needPermissions(Permissions.FLAGS.SEND_MESSAGES)
 	async questions({ guild, postedAt }, question) {
 		if (!questions.enabled) return;
 
