@@ -4,7 +4,7 @@ import { RichEmbed } from 'discord.js';
 
 const settings = load('Meme.json');
 
-const COMMAND_MATCH = '^$command(?: <@!?(\\d+)>| @(.+)#(\\d+))?';
+const COMMAND_MATCH = '^$command(?: <@!?(\\d+)>)?';
 
 export default class Meme {
 	constructor() {
@@ -23,10 +23,12 @@ export default class Meme {
 	setupOne(name, { desc, msg, images, allowNoArg }) {
 		const regex = new RegExp(COMMAND_MATCH.replace('$command', name), 'i');
 
-		const value = (message, mention, name, id) => {
-			const { member, guild } = message;
+		const value = (message, user) => {
+			const { member, guild, client } = message;
 
-			if (!allowNoArg && !mention && !name) {
+			const to = guild.members.get(user);
+
+			if (!allowNoArg && !to) {
 				const embed = embeds.err('Aucun utilisateur trouvé 😭');
 
 				return message.channel
@@ -40,8 +42,8 @@ export default class Meme {
 					message,
 					msg,
 					images,
-					member,
-					members.byName(guild, name, id)
+					user ? member : client.me,
+					user ? to : member
 				)
 			]);
 		};

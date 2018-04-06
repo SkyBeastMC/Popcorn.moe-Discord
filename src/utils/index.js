@@ -1,6 +1,5 @@
 import * as embeds from './embeds';
-import * as members from './members';
 import { error, warn, errHandle, errorDiscord } from './log';
 import load from './load';
 
-export { embeds, members, error, warn, errHandle, errorDiscord, load };
+export { embeds, error, warn, errHandle, errorDiscord, load };
