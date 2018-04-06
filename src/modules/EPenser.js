@@ -4,6 +4,8 @@ import { load } from '../utils';
 
 const { activeUsers, questions, newMember, readRules } = load('EPenser.json');
 
+const settings = load('global.json');
+
 export default class EPenser {
 	constructor() {
 		this.category = {
@@ -51,8 +53,10 @@ export default class EPenser {
 		usage: '[question]'
 	})
 	@needPermissions(Permissions.FLAGS.SEND_MESSAGES)
-	async questions({ guild, postedAt, member }, question) {
+	async questions(message, question) {
 		if (!questions.enabled) return;
+
+		const { guild, postedAt, member } = message;
 
 		if (!guild.channels.find('name', questions.channel)) {
 			await guild.createChannel(questions.channel, 'text');
@@ -68,10 +72,15 @@ export default class EPenser {
 			.setColor(0x2f73e0)
 			.setDescription(question)
 			.setTimestamp(postedAt);
-		const message = await qChannel.send(`<@${member.id}>`, { embed });
-		await message.react('👍');
-		await message.react('👎');
-		await message.react('❌');
+
+		return Promise.all([
+			message.delete(),
+			message.channel
+				.send({ embed })
+				.then(message => message.react('👍')) //Ensure order
+				.then(react => react.message.react('👎'))
+				.then(react => react.message.react('❌'))
+		]);
 	}
 
 	@on('messageReactionAdd')
@@ -87,6 +96,15 @@ export default class EPenser {
 			return;
 
 		return message.delete();
+	}
+
+	@on('ready')
+	async fetchQuestions() {
+		settings.guilds
+			.map(sGuild => client.guilds.get(sGuild.id))
+			.map(guild => guild.channels.find('name', questions.channel))
+			.filter(channel => channel && channel.fetchMessages)
+			.map(channel => channel.fetchMessages({ limit: 100 })) //Allow the bot to listen to reactions in previous messages.
 	}
 
 	/**
