@@ -57,7 +57,7 @@ export default class EPenser {
 	async questions(message, question) {
 		if (!questions.enabled) return;
 
-		if (questions.listenChannels.includes(message.channel.id)) return;
+		if (!questions.listenChannels.includes(message.channel.id)) return;
 
 		const { guild, postedAt, member } = message;
 
