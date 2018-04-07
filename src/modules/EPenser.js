@@ -47,7 +47,7 @@ export default class EPenser {
 	 * Fonctionnement : Quand un utilisateur utilise la commande q, recupere sa question et la poste dans un channel #questions
 	 */
 	//Thanks @Iryu : https://pastebin.com/9zKuJ6dT
-	@command(/^q (.{15,}[\?\.\)])$/, {
+	@command(/^q (.{14,}[\?\.\)])$/, {
 		//regex powaaa (:
 		name: 'q',
 		desc: 'Poser une question',
@@ -91,6 +91,7 @@ export default class EPenser {
 		const member = message.guild.members.get(user.id);
 		return (
 			emoji.name === '❌' &&
+			user.id !== client.me.id && 
 			message.channel.name === questions.channel &&
 			member &&
 			member.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES) &&
