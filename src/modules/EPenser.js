@@ -90,7 +90,7 @@ export default class EPenser {
 
 		const member = message.guild.members.get(user.id);
 		return (
-			!reaction.emoji.name === '❌' &&
+			!emoji.name === '❌' &&
 			message.channel.name === questions.channel &&
 			member &&
 			member.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES) &&
