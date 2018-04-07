@@ -96,7 +96,8 @@ export default class EPenser {
 			!bot &&
 			message.channel.name === questions.channel &&
 			member &&
-			member.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES) &&
+			(member.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES) ||
+				member.user.id === message.mentions.users.firstKey()) &&
 			message.delete()
 		);
 	}
