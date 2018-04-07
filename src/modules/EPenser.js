@@ -57,6 +57,8 @@ export default class EPenser {
 	async questions(message, question) {
 		if (!questions.enabled) return;
 
+		if (questions.listenChannels.includes(message.channel.id)) return;
+
 		const { guild, postedAt, member } = message;
 
 		if (!guild.channels.find('name', questions.channel)) {
@@ -91,7 +93,7 @@ export default class EPenser {
 		const member = message.guild.members.get(id);
 		return (
 			emoji.name === '❌' &&
-			!bot && 
+			!bot &&
 			message.channel.name === questions.channel &&
 			member &&
 			member.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES) &&
