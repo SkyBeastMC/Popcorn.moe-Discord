@@ -76,8 +76,8 @@ export default class EPenser {
 
 		return Promise.all([
 			message.delete(),
-			message.channel
-				.send({ embed })
+			qChannel
+				.send(`${member.user} :`, { embed })
 				.then(message => message.react('👍')) //Ensure order
 				.then(react => react.message.react('👎'))
 				.then(react => react.message.react('❌'))
@@ -85,18 +85,17 @@ export default class EPenser {
 	}
 
 	@on('messageReactionAdd')
-	async questionsDel({ message }, user) {
+	async questionsDel({ message, emoji }, user) {
 		if (!questions.enabled) return;
 
 		const member = message.guild.members.get(user.id);
-		if (
-			message.channel.name !== questions.channel ||
-			!member ||
-			!member.permissions.has(Permissions.MANAGE_MESSAGES)
-		)
-			return;
-
-		return message.delete();
+		return (
+			!reaction.emoji.name === '❌' &&
+			message.channel.name === questions.channel &&
+			member &&
+			member.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES) &&
+			message.delete()
+		);
 	}
 
 	@on('ready')
@@ -105,7 +104,7 @@ export default class EPenser {
 			.map(sGuild => client.guilds.get(sGuild.id))
 			.map(guild => guild.channels.find('name', questions.channel))
 			.filter(channel => channel && channel.fetchMessages)
-			.map(channel => channel.fetchMessages({ limit: 100 })) //Allow the bot to listen to reactions in previous messages.
+			.map(channel => channel.fetchMessages({ limit: 100 })); //Allow the bot to listen to reactions in previous messages.
 	}
 
 	/**
