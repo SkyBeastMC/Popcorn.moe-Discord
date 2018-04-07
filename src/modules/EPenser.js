@@ -85,13 +85,13 @@ export default class EPenser {
 	}
 
 	@on('messageReactionAdd')
-	async questionsDel({ message, emoji }, user) {
+	async questionsDel({ message, emoji, me }, user) {
 		if (!questions.enabled) return;
 
 		const member = message.guild.members.get(user.id);
 		return (
 			emoji.name === '❌' &&
-			user.id !== client.me.id && 
+			!me && 
 			message.channel.name === questions.channel &&
 			member &&
 			member.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES) &&
