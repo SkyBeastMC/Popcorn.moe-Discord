@@ -19,11 +19,11 @@ export default class Help {
 		desc: "Afficher une page d'aide à propos d'une commande"
 	})
 	help(message) {
-		const sGuild = settings.guilds && settings.guilds.get(message.guild.id);
+		const sGuild = settings.guilds && settings.guilds[message.guild.id];
 		const botsChannel =
 			sGuild &&
 			sGuild.channels &&
-			message.guild.channels.get(sGuild.channels.bots);
+			message.guild.channels[sGuild.channels.bots];
 
 		if (!this.embed) this.embed = this.generateHelp();
 
