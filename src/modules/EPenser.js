@@ -96,7 +96,8 @@ export default class EPenser {
 			!bot &&
 			message.channel.name === questions.channel &&
 			member &&
-			member.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES) &&
+			(member.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES) ||
+				member.user.id === message.mentions.users.firstKey()) &&
 			message.delete()
 		);
 	}
@@ -133,20 +134,32 @@ export default class EPenser {
 	readRules(message) {
 		if (!readRules.enabled) return;
 
-		const { member, content, channel } = message;
+		const { member, content, channel, guild, author } = message;
 
 		if (channel.id !== readRules.channel) return;
 
-		const roles = member.roles.values();
-		if (roles.length !== 1 || roles[0].id !== readRules.viewerRole)
+		const roles = member.roles.array();
+		if (roles.length !== 2 || roles[1].id !== readRules.viewerRole)
+			//account for @everyone role
 			return message.delete();
 
-		if (content === readRules.message)
+		const announce =
+			readRules.announce && guild.channels.get(readRules.announceChannel);
+
+		if (
+			readRules.message === content ||
+			(typeof readRules.message === 'object' &&
+				readRules.message.includes(content))
+		)
 			return Promise.all([
 				message.delete(),
 				member.send(readRules.rankupMessage),
 				member.removeRole(readRules.viewerRole),
-				member.addRole(readRules.rankupRole)
+				member.addRole(readRules.rankupRole),
+				announce &&
+					announce.send(
+						readRules.announceRankupMessage.replace('$user', author)
+					)
 			]);
 		else
 			return Promise.all([

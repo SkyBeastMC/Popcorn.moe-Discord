@@ -96,6 +96,18 @@ export default class Licorne {
 			);
 	}
 
+	@command(/^roles$/)
+	@needPermissions(Permissions.FLAGS.MANAGE_CHANNELS)
+	roles({ channel, guild }) {
+		return channel.send(
+			'Role list:\n' +
+				`\`\`\`js\n${guild.roles
+					.array()
+					.map(({ name, id }) => `${id} ${name}`)
+					.join('\n')}\`\`\``
+		);
+	}
+
 	stringify(obj) {
 		let str = stringify(obj, {
 			inlineCharacterLimit: 32,

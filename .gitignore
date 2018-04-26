@@ -58,5 +58,6 @@ typings/
 .env
 
 # custom
-token.sh
-run.sh
+*.sh
+*.bat
+.vscode

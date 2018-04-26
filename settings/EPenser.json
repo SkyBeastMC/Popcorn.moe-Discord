@@ -6,7 +6,7 @@
 		"role": "308615845129617408"
 	},
 	"questions": {
-		"enabled": false,
+		"enabled": true,
 		"channel": "questions",
 		"listenChannels": ["430993512704770048"]
 	},
@@ -15,12 +15,16 @@
 		"role": "430845952388104212"
 	},
 	"readRules": {
-		"enabled": false,
+		"enabled": true,
 		"channel": "298539936053985280",
 		"viewerRole": "430845952388104212",
-		"message": "cacahuetes",
-		"rankupMessage": "Vous avez rank up !",
-		"rankupRole": "430846685380345876",
-		"failMessage": "Veuillez lire les règles pour devenir **e-penseur** !"
+		"message": ["rhinocéros", "rhinoceros"],
+		"announce": true,
+		"announceRankupMessage": "$user est désormais un **e-penseur** accompli.",
+		"announceChannel": "429977240202248192",
+		"rankupMessage":
+			"Félicitations, vous êtes désormais un **e-penseur** accompli.\nQue la force soit avec vous !",
+		"rankupRole": "439129531719221248",
+		"failMessage": "Veuillez lire les règles afin de devenir **e-penseur** !"
 	}
 }
