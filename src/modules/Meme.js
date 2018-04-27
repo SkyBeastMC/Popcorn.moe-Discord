@@ -9,7 +9,7 @@ const COMMAND_MATCH = '^$command(?: <@!?(\\d+)>)?';
 export default class Meme {
 	constructor() {
 		this.category = {
-			icon: '<:ah:431723444799799297>',
+			icon: '🍆',
 			name: 'Meme'
 		};
 

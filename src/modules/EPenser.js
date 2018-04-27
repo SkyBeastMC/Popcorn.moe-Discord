@@ -10,7 +10,7 @@ const settings = load('global.json');
 export default class EPenser {
 	constructor() {
 		this.category = {
-			icon: '<:3_:431578215086292993>',
+			icon: '🛰',
 			name: 'EPenser',
 			desc: 'Commandes en rapport à Bruce'
 		};
