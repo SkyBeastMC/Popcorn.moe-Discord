@@ -9,7 +9,7 @@ const settings = load('Github.json');
 export default class Github {
 	constructor() {
 		this.category = {
-			icon: '<:github:357956053952102400>',
+			icon: '<:github:439408363080646666>',
 			name: 'Github',
 			desc: 'Commande en rapport avec Github'
 		};
