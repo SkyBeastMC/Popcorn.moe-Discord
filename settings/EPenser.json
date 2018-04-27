@@ -14,7 +14,8 @@
 	},
 	"newMember": {
 		"enabled": true,
-		"role": "430845952388104212"
+		"role": "430845952388104212",
+		"guild": "297780867286433792"
 	},
 	"readRules": {
 		"enabled": true,
