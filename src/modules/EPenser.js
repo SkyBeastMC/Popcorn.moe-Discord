@@ -160,7 +160,10 @@ export default class EPenser {
 		if (channel.id !== readRules.channel) return;
 
 		const roles = member.roles.array();
-		if (roles.length !== 2 || roles[1].id !== readRules.viewerRole)
+		if (
+			roles.length !== 1 &&
+			(roles.length !== 2 || roles[1].id !== readRules.viewerRole)
+		)
 			//account for @everyone role
 			return message.delete();
 
