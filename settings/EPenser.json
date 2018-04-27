@@ -13,7 +13,7 @@
 			"Votre question doit contenir au moins 15 caractères et terminer par un point ou un point d'interrogation."
 	},
 	"newMember": {
-		"enabled": false,
+		"enabled": true,
 		"role": "430845952388104212"
 	},
 	"readRules": {
