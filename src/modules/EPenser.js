@@ -94,7 +94,7 @@ export default class EPenser {
 		return (
 			emoji.name === '❌' &&
 			!bot &&
-			message.channel.name === questions.channel &&
+			message.channel.id === questions.channel &&
 			member &&
 			(member.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES) ||
 				member.user.id === message.mentions.users.firstKey()) &&
