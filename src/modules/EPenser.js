@@ -60,15 +60,7 @@ export default class EPenser {
 		if (!questions.listenChannels.includes(message.channel.id)) return;
 
 		const { guild, postedAt, member } = message;
-
-		if (!guild.channels.find('name', questions.channel)) {
-			await guild.createChannel(questions.channel, 'text');
-			await message.channel.send(
-				'[**Channel de questions**] Channel pour les questions à Bruce.'
-			);
-		}
-
-		const qChannel = guild.channels.find('name', questions.channel);
+		const qChannel = guild.channels.get(questions.channel);
 
 		const embed = new RichEmbed()
 			.setAuthor(member.displayName, member.user.displayAvatarURL)
@@ -87,7 +79,7 @@ export default class EPenser {
 	}
 
 	@on('messageReactionAdd')
-	async questionsDel({ message, emoji, me }, { id, bot }) {
+	async questionsDel({ message, emoji }, { id, bot }) {
 		if (!questions.enabled) return;
 
 		const member = message.guild.members.get(id);
@@ -102,13 +94,18 @@ export default class EPenser {
 		);
 	}
 
+	//Allow the bot to listen to reactions in previous messages.
 	@on('ready')
-	async fetchQuestions() {
-		settings.guilds
-			.map(sGuild => client.guilds.get(sGuild.id))
-			.map(guild => guild.channels.find('name', questions.channel))
-			.filter(channel => channel && channel.fetchMessages)
-			.map(channel => channel.fetchMessages({ limit: 100 })); //Allow the bot to listen to reactions in previous messages.
+	fetchQuestions() {
+		if (!questions.enabled) return;
+
+		return Promise.all(
+			settings.guilds
+				.map(sGuild => client.guilds.get(sGuild.id))
+				.map(guild => guild.channels.get(questions.channel))
+				.filter(channel => channel && channel.fetchMessages)
+				.map(channel => channel.fetchMessages({ limit: 100 }))
+		);
 	}
 
 	/**
@@ -124,6 +121,21 @@ export default class EPenser {
 
 		const eViewer = member.guild.roles.get(newMember.role);
 		return member.addRole(eViewer);
+	}
+
+	//Ajout du role on startup / reload (safety)
+	@on('ready')
+	newMemberStartup() {
+		if (!newMember.enabled) return;
+
+		const guild = client.guilds.get(newMember.guild)
+		const eViewer = guild.roles.get(newMember.role);
+
+		return Promise.all(
+				guild.members.array()
+				.filter(({ roles }) => roles.size === 1)
+				.map(member => member.addRole(eViewer))
+		);
 	}
 
 	/**
