@@ -47,8 +47,7 @@ export default class EPenser {
 	 * Fonctionnement : Quand un utilisateur utilise la commande q, recupere sa question et la poste dans un channel #questions
 	 */
 	//Thanks @Iryu : https://pastebin.com/9zKuJ6dT
-	@command(/^q (.{14,}[\?\.\)])$/, {
-		//regex powaaa (:
+	@command(/^q (.+)$/, {
 		name: 'q',
 		desc: 'Poser une question',
 		usage: '[question]'
@@ -61,6 +60,15 @@ export default class EPenser {
 
 		const { guild, postedAt, member } = message;
 		const qChannel = guild.channels.get(questions.channel);
+
+		if (!/^.{14,}[\?\.\)]$/.exec(question))
+			return Promise.all([
+				member.send(
+					questions.failMessage +
+						`\nVotre question: \`${question.replace('`', '\\`')}\``
+				),
+				message.delete()
+			]);
 
 		const embed = new RichEmbed()
 			.setAuthor(member.displayName, member.user.displayAvatarURL)
@@ -128,11 +136,12 @@ export default class EPenser {
 	newMemberStartup() {
 		if (!newMember.enabled) return;
 
-		const guild = client.guilds.get(newMember.guild)
+		const guild = client.guilds.get(newMember.guild);
 		const eViewer = guild.roles.get(newMember.role);
 
 		return Promise.all(
-				guild.members.array()
+			guild.members
+				.array()
 				.filter(({ roles }) => roles.size === 1)
 				.map(member => member.addRole(eViewer))
 		);

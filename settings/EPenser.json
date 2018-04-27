@@ -8,7 +8,9 @@
 	"questions": {
 		"enabled": true,
 		"channel": "430993496304779265",
-		"listenChannels": ["430993512704770048"]
+		"listenChannels": ["430993512704770048"],
+		"failMessage":
+			"Votre question doit contenir au moins 15 caractères et terminer par un point ou un point d'interrogation."
 	},
 	"newMember": {
 		"enabled": false,
