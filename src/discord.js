@@ -2,7 +2,7 @@ import { Client } from 'discord.js';
 import { magenta, green } from 'chalk';
 import { error, warn } from './utils';
 
-export const client = new Client();
+export const client = new Client({ forceFetchUsers: true });
 
 client.on('ready', () =>
 	console.log(
