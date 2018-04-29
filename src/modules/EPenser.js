@@ -133,11 +133,13 @@ export default class EPenser {
 
 	//Ajout du role on startup / reload (safety)
 	@on('ready')
-	newMemberStartup() {
+	async newMemberStartup() {
 		if (!newMember.enabled) return;
 
 		const guild = client.guilds.get(newMember.guild);
 		const eViewer = guild.roles.get(newMember.role);
+
+		await guild.fetchMembers(); //Fetch offline members
 
 		return Promise.all(
 			guild.members
