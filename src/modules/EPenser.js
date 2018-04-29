@@ -175,7 +175,7 @@ export default class EPenser {
 		if (
 			readRules.message === content.toLowerCase() ||
 			(typeof readRules.message === 'object' &&
-				readRules.message.includes(content))
+				readRules.message.includes(content.toLowerCase()))
 		)
 			return Promise.all([
 				message.delete(),
