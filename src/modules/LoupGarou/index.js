@@ -1,54 +1,10 @@
-import { command } from '../decorators';
-import { shuffle } from '../utils';
-import wait from '../utils/wait';
+import { findBestMatch } from 'string-similarity';
 
-const roles = {
-	doppelganger: {
-		name: 'Doppelgänger',
-		turn: true
-	},
-	loupgarou: {
-		name: 'Loup-Garou',
-		turn: true
-	},
-	sbire: {
-		name: 'Sbire',
-		turn: true
-	},
-	francmacon: {
-		name: 'Franc-maçon',
-		turn: true
-	},
-	voyante: {
-		name: 'Voyante',
-		turn: true
-	},
-	voleur: {
-		name: 'Voleur',
-		turn: true
-	},
-	noiseuse: {
-		name: 'Noiseuse',
-		turn: true
-	},
-	soulard: {
-		name: 'Soûlard',
-		turn: true
-	},
-	insomniaque: {
-		name: 'Insomniaque',
-		turn: true
-	},
-	tanneur: {
-		name: 'Tanneur'
-	},
-	chasseur: {
-		name: 'Chasseur'
-	},
-	villageois: {
-		name: 'Villageois'
-	}
-};
+import { command } from '../decorators';
+import { shuffle, wait } from '../utils';
+import { client } from '../../discord';
+
+import roles from './roles';
 
 const middle = ['carte1', 'carte2', 'carte3'];
 
@@ -138,11 +94,33 @@ export default class LoupGarou {
 						Array.from(Object.entries(game.board))
 							.filter(([, id]) => id === roleId) // For each player in the board that has this role
 							.map(([uid]) => game.players.find(uid))
-							.map(user => playRole(user, roleId, role)) // Play the role
+							.map(user => playRole(user, role, game)) // Play the role
 					)
 				)
 		);
 	}
 
-	async playRole(user, roleId, role) {}
+	async playRole(user, role, game) {
+		await role.turn.apply(this, [user, game]);
+	}
+
+	// UTIL //
+
+	async playerResponse(players, user, embed) {
+		const message = await user.send({ embed });
+		return new Promise((resolve, reject) => {
+			const callback = ({ channel, content }) => {
+				if (id === channel.id) {
+					const { bestMatch: { target } } = findBestMatch(
+						content,
+						players.map(p => p.username)
+					);
+
+					client.removeListener('message', callback);
+					resolve(players.find(u => u.username === target)); //todo confirmation
+				}
+			};
+			client.on('message', callback);
+		});
+	}
 }
