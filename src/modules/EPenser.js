@@ -161,7 +161,7 @@ export default class EPenser {
 
 		if (channel.id !== readRules.channel) return;
 
-		if (member.roles.get(readRules.viewerRole)) return message.delete();
+		if (!member.roles.get(readRules.viewerRole)) return message.delete();
 
 		const announce =
 			readRules.announce && guild.channels.get(readRules.announceChannel);
