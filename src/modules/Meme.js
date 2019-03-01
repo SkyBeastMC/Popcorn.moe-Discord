@@ -54,23 +54,25 @@ export default class Meme {
 	}
 
 	response(message, msg, images, from, to) {
-		if (!to) {
-			const embed = embeds.err('Aucun utilisateur trouvé 😭');
+		if (false){
+			if (!to) {
+				const embed = embeds.err('Aucun utilisateur trouvé 😭');
 
-			return message.channel
-				.send({ embed })
-				.then(message => embeds.timeDelete(message));
+				return message.channel
+					.send({ embed })
+					.then(message => embeds.timeDelete(message));
+			}
+
+			const send = msg
+				.replace('{0}', from.displayName)
+				.replace('{1}', to.displayName);
+
+			const embed = new RichEmbed()
+				.setTitle(send)
+				.setColor(0x00ae86)
+				.setImage(images[Math.floor(Math.random() * images.length)]);
+
+			return message.channel.send(`<@${to.id}>`, { embed });
 		}
-
-		const send = msg
-			.replace('{0}', from.displayName)
-			.replace('{1}', to.displayName);
-
-		const embed = new RichEmbed()
-			.setTitle(send)
-			.setColor(0x00ae86)
-			.setImage(images[Math.floor(Math.random() * images.length)]);
-
-		return;
 	}
 }
