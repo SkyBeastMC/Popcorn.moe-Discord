@@ -71,6 +71,6 @@ export default class Meme {
 			.setColor(0x00ae86)
 			.setImage(images[Math.floor(Math.random() * images.length)]);
 
-		return message.channel.send(`<@${to.id}>`, { embed });
+		return;
 	}
 }
